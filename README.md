@@ -49,7 +49,7 @@ Este projeto implementa um sistema completo de gestão de filas inspirado num ce
 
 ### O projeto utiliza várias Bibliotecas:
 
-* ```queue``` → Filas de atendimento (VIP e Normal)
+* ```queue``` → Filas de atendimento (VIP e Normal) (FIFO)
 * ```stack``` → Histórico de ações (LIFO)
 * ```list``` → Histórico de clientes atendidos
 
