@@ -54,7 +54,7 @@ Este projeto implementa um sistema completo de gestão de filas inspirado num ce
 * ```list``` → Histórico de clientes atendidos
 
 ## 🧾 Menu do Programa
-```
+```ruby
 1. Adicionar cliente
 2. Atender cliente
 3. Trocar prioridade
