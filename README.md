@@ -73,3 +73,76 @@ Este projeto implementa um sistema completo de gestão de filas inspirado num ce
 * Atender VIPs primeiro
 * Depois clientes normais
 * O histórico de ações funciona como uma pilha ```stack```
+
+## 💻 Exemplos de Código
+
+### 🧩 Estruturas e Variáveis Principais
+```ruby
+struct Atendimento {
+    string nome;       // Nome do cliente
+    int idade;         // Idade do cliente
+    string prioridade; // VIP ou Normal
+    int id;            // ID único
+};
+
+int valor_id = 1;
+int cont_vip = 0;
+int cont_naovip = 0;
+int trocar_id;
+
+struct Acao {
+    string descricao;
+    string nome_cliente;
+};
+
+queue<Atendimento> fila_atender_clientes_naovip; // Fila Normal
+queue<Atendimento> fila_vip;                     // Fila VIP
+list<Atendimento> historico_clientes_atendidos;  // Histórico de atendidos
+stack<Acao> historico_acoes;                     // Histórico de ações
+```
+### 👥 Adicionar Cliente às Filas
+```ruby
+Atendimento Novo_cliente;
+Novo_cliente.id = valor_id++;
+
+cout << "Nome: ";
+getline(cin, Novo_cliente.nome);
+
+cout << "Idade: ";
+cin >> Novo_cliente.idade;
+
+cout << "VIP? (S/N): ";
+cin >> Novo_cliente.prioridade;
+
+if (Novo_cliente.prioridade == "S" || Novo_cliente.prioridade == "s") {
+    fila_vip.push(Novo_cliente);
+    historico_acoes.push({ "Cliente VIP Adicionado", Novo_cliente.nome });
+} else {
+    fila_atender_clientes_naovip.push(Novo_cliente);
+    historico_acoes.push({ "Cliente Normal Adicionado", Novo_cliente.nome });
+}
+```
+
+### 🚀 Atendimento com Prioridade
+```ruby
+if (!fila_vip.empty()) {
+    historico_clientes_atendidos.push_back(fila_vip.front());
+    historico_acoes.push({ "Cliente VIP Atendido", fila_vip.front().nome });
+    fila_vip.pop();
+}
+else if (!fila_atender_clientes_naovip.empty()) {
+    historico_clientes_atendidos.push_back(fila_atender_clientes_naovip.front());
+    historico_acoes.push({ "Cliente Normal Atendido", fila_atender_clientes_naovip.front().nome });
+    fila_atender_clientes_naovip.pop();
+}
+```
+### ⏪ Histórico de Ações (Stack)
+```ruby
+stack<Acao> pilha_altern = historico_acoes;
+
+while (!pilha_altern.empty()) {
+    cout << pilha_altern.top().descricao 
+         << " -> " << pilha_altern.top().nome_cliente << endl;
+    pilha_altern.pop();
+}
+```
